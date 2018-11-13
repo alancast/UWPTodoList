@@ -1,0 +1,139 @@
+﻿<Page
+    x:Class="UWPTodoList.Views.TodoListPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:models="using:UWPTodoList.Models"
+    xmlns:converters="using:UWPTodoList.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <converters:NullVisibilityConverter x:Key="nullVisibilityConverter" />
+            <DataTemplate x:Key="TodoItemDetailedView" x:DataType="models:TodoItem">
+                <Grid>
+                    <TextBlock 
+                        x:Name="itemTitleHeaderTextBlock" 
+                        HorizontalAlignment="Left"
+                        Height="30" 
+                        Margin="30,0,0,0" 
+                        Text="Title" 
+                        TextWrapping="Wrap"
+                        VerticalAlignment="Stretch" 
+                        Width="134"/>
+                    <TextBlock 
+                        x:Name="itemTitleTextBlock" 
+                        HorizontalAlignment="Left"
+                        Height="30" 
+                        Margin="30,30,0,0" 
+                        Text="{x:Bind Path=Title, Mode=OneWay}" 
+                        TextWrapping="Wrap"
+                        VerticalAlignment="Stretch" 
+                        Width="134"/>
+                    <TextBlock 
+                        x:Name="itemDescriptionHeaderTextBlock" 
+                        HorizontalAlignment="Left"
+                        Height="30" 
+                        Margin="30,60,0,0" 
+                        Text="Description" 
+                        TextWrapping="Wrap"
+                        VerticalAlignment="Stretch" 
+                        Width="134"/>
+                    <TextBlock 
+                        x:Name="itemDescriptionTextBlock" 
+                        HorizontalAlignment="Left"
+                        Height="30" 
+                        Margin="30,90,0,0"
+                        Text="{x:Bind Path=Description, Mode=OneWay}" 
+                        TextWrapping="Wrap"
+                        VerticalAlignment="Stretch" 
+                        Width="156"/>
+                </Grid>
+            </DataTemplate>
+        </ResourceDictionary>
+    </Page.Resources>
+    <Grid>
+        <TextBlock 
+            x:Name="titleTextBlock" 
+            HorizontalAlignment="Left" 
+            Height="22" 
+            Margin="169,244,0,0" 
+            Text="Title" 
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top"
+            Width="186"        
+            TextAlignment="Center" />
+        <TextBox 
+            x:Name="titleTextBox" 
+            HorizontalAlignment="Left" 
+            Height="31" 
+            Margin="169,269,0,0" 
+            Text="{x:Bind Path=ViewModel.ItemTitle, Mode=TwoWay}"
+            VerticalAlignment="Top" 
+            Width="187" />
+        <TextBlock x:Name="descriptionTextBlock" 
+            HorizontalAlignment="Left" 
+            Height="22" 
+            Margin="169,320,0,0" 
+            Text="Description" 
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top"
+            Width="186" 
+            TextAlignment="Center" />
+        <TextBox 
+            x:Name="descriptionTextBox" 
+            HorizontalAlignment="Left" 
+            Height="91" 
+            Margin="169,345,0,0" 
+            Text="{x:Bind Mode=TwoWay, Path=ViewModel.ItemDescription}"
+            VerticalAlignment="Top" 
+            Width="187" />
+        <Button 
+            x:Name="AddItemButton" 
+            Click="{x:Bind ViewModel.AddItem}"
+            Content="Add Item" 
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Top" 
+            Margin="169,500,0,0" 
+            Height="98" 
+            Width="190" />
+        <TextBlock 
+            x:Name="listNameTextBlock" 
+            HorizontalAlignment="Left" 
+            Height="23" 
+            Margin="437,206,0,0" 
+            Text="{x:Bind Path=ViewModel.List.ListName, Mode=OneWay}" 
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top" 
+            Width="283" 
+            TextAlignment="Center" />
+        <ListView 
+            x:Name="itemsListView" 
+            ItemsSource="{x:Bind ViewModel.List.Items}"
+            SelectedItem="{x:Bind Path=ViewModel.SelectedItem, Mode=TwoWay}"
+            HorizontalAlignment="Left" 
+            Height="344" 
+            Margin="437,254,0,0" 
+            VerticalAlignment="Top" 
+            Width="283" 
+            Background="#FFE2E2E2">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="models:TodoItem">
+                    <TextBlock Text="{x:Bind Title}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <ContentControl 
+            x:Name="TodoItemDetailedViewContentControl"
+            ContentTemplate="{StaticResource TodoItemDetailedView}"
+            Content="{x:Bind Path=ViewModel.SelectedItem, Mode=OneWay}" 
+            Visibility="{x:Bind Path=ViewModel.SelectedItem, Mode=OneWay, Converter={StaticResource nullVisibilityConverter}}"
+            HorizontalAlignment="Left" 
+            Height="285"
+            Margin="780,264,0,0"
+            VerticalAlignment="Top"
+            Width="231" />
+    </Grid>
+</Page>
