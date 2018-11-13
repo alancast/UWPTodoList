@@ -5,26 +5,7 @@ namespace UWPTodoList.ViewModels
 {
     public class TodoListViewModel : BindableBase
     {
-        // Uncomment lines below and section in TodoListPage.xaml.cs to use singelton TodoListViewModel
-        //private TodoListViewModel()
-        //{
-        //    _list = new TodoList();
-        //}
-
-        //private static TodoListViewModel _instance;
-        //public static TodoListViewModel Instance
-        //{
-        //    get
-        //    {
-        //        if (_instance == null)
-        //        {
-        //            _instance = new TodoListViewModel();
-        //        }
-        //        return _instance;
-        //    }
-        //}
-
-        public TodoListViewModel(TodoList list = null) => List = list ?? new TodoList();
+        public TodoListViewModel(TodoList list) => List = list;
 
         private TodoList _list;
 

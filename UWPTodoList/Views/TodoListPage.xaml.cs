@@ -1,5 +1,7 @@
-﻿using UWPTodoList.ViewModels;
+﻿using UWPTodoList.Models;
+using UWPTodoList.ViewModels;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -16,8 +18,15 @@ namespace UWPTodoList.Views
             this.DataContext = ViewModel;
         }
 
-        // Uncomment line below and section in TodoListViewModel.cs to use singelton TodoListViewModel
-        //public TodoListViewModel ViewModel { get; set; } = TodoListViewModel.Instance;
-        public TodoListViewModel ViewModel { get; set; } = new TodoListViewModel();
+        public TodoListViewModel ViewModel { get; set; }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if (e.Parameter is TodoList && e.Parameter != null)
+            {
+                ViewModel = new TodoListViewModel((TodoList)e.Parameter);
+            }
+            base.OnNavigatedTo(e);
+        }
     }
 }

@@ -1,4 +1,6 @@
-﻿using UWPTodoList.Views;
+﻿using UWPTodoList.Models;
+using UWPTodoList.ViewModels;
+using UWPTodoList.Views;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -13,8 +15,12 @@ namespace UWPTodoList
     {
         public MainPage()
         {
+            ViewModel = new MainPageViewModel();
             this.InitializeComponent();
+            this.DataContext = ViewModel;
         }
+
+        public MainPageViewModel ViewModel { get; set; }
 
         #region NavigationView event handlers
         private void nvTopLevelNav_Loaded(object sender, RoutedEventArgs e)
@@ -28,7 +34,7 @@ namespace UWPTodoList
                     break;
                 }
             }
-            contentFrame.Navigate(typeof(TodoListPage));
+            contentFrame.Navigate(typeof(TodoListPage), ViewModel.lists[0]);
         }
 
         private void nvTopLevelNav_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
@@ -51,7 +57,7 @@ namespace UWPTodoList
                     switch (ItemContent.Tag)
                     {
                         case "Nav_Home":
-                            contentFrame.Navigate(typeof(TodoListPage));
+                            contentFrame.Navigate(typeof(TodoListPage), ViewModel.lists[0]);
                             break;
 
                         case "Nav_Shop":
