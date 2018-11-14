@@ -2,41 +2,29 @@
     x:Class="UWPTodoList.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:UWPTodoList"
+    xmlns:models="using:UWPTodoList.Models"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <NavigationView x:Name="nvTopLevelNav"
-                Loaded="nvTopLevelNav_Loaded"
-                Margin="0,12,0,0"
-                SelectionChanged="nvTopLevelNav_SelectionChanged"
-                ItemInvoked="nvTopLevelNav_ItemInvoked"
-                IsTabStop="False"
-                IsSettingsVisible="True"
-                Header="Welcome to UWP">
-            <NavigationView.MenuItems>
-                <NavigationViewItem Icon="Home" Tag="Home_Page">
-                    <TextBlock Tag="Nav_Home">Home</TextBlock>
-                </NavigationViewItem>
-                <NavigationViewItem Icon="Message" Tag="Message_Page">
-                    <TextBlock Tag="Nav_Message">Message</TextBlock>
-                </NavigationViewItem>
-                <NavigationViewItem Tag="Chinese_Page">
-                    <NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xE981;"/>
-                    </NavigationViewItem.Icon>
-                    <TextBlock Tag="Nav_Chinese">Learn Chinese!</TextBlock>
-                </NavigationViewItem>
-                <NavigationViewItem Icon="Shop" Tag="Shop_Page">
-                    <TextBlock Tag="Nav_Shop">Buy some stuff?</TextBlock>
-                </NavigationViewItem>
-                <NavigationViewItem Icon="Print" Tag="Print_Page">
-                    <TextBlock Tag="Nav_Print">You still use paper? Oh, no, nvm you just want to save something as a PDF</TextBlock>
-                </NavigationViewItem>
-            </NavigationView.MenuItems>
+        <NavigationView 
+            x:Name="nvTopLevelNav"
+            MenuItemsSource="{x:Bind Path=ViewModel.lists, Mode=OneWay}"
+            Margin="0,12,0,0"
+            SelectionChanged="nvTopLevelNav_SelectionChanged"
+            IsTabStop="False"
+            IsSettingsVisible="True"
+            Header="Welcome to UWP">
+            <NavigationView.MenuItemTemplate>
+                <DataTemplate x:DataType="models:TodoList">
+                    <StackPanel Orientation="Horizontal">
+                        <SymbolIcon Symbol="{x:Bind Icon}" Margin="0,0,15,0"/>
+                        <TextBlock Text="{x:Bind ListName}" />
+                    </StackPanel>
+                </DataTemplate>
+            </NavigationView.MenuItemTemplate>
             <Frame x:Name="contentFrame"></Frame>
         </NavigationView>
     </Grid>

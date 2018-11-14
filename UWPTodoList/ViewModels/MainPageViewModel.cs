@@ -16,10 +16,6 @@ namespace UWPTodoList.ViewModels
         {
             // TODO: in the future actually read this list in from a file or something, not just hardcoded
 
-            // Create initial starter list
-            TodoList starterList = new TodoList();
-            starterList.ListName = "Starter List";
-
             // Create initial starter items 
             TodoItem item1 = new TodoItem();
             TodoItem item2 = new TodoItem();
@@ -29,13 +25,23 @@ namespace UWPTodoList.ViewModels
             item2.Description = "Description 2";
             item1.Visibile = item2.Visibile = true;
 
+            // Create initial starter lists
+            TodoList firstList = new TodoList();
+            firstList.ListName = "First List";
+            TodoList secondList = new TodoList();
+            secondList.ListName = "Second List";
+            secondList.Icon = "Shop";
+
             // Add starter items to list
-            starterList.Add(item1);
-            starterList.Add(item2);
+            firstList.Add(item1);
+            firstList.Add(item2);
+            secondList.Add(item1);
+            secondList.Add(item2);
 
             // Add list to lists
             lists = new ObservableCollection<TodoList>();
-            lists.Add(starterList);
+            lists.Add(firstList);
+            lists.Add(secondList);
         }
     }
 }

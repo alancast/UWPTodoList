@@ -1,5 +1,4 @@
-﻿using System.Windows.Input;
-using UWPTodoList.Models;
+﻿using UWPTodoList.Models;
 
 namespace UWPTodoList.ViewModels
 {
