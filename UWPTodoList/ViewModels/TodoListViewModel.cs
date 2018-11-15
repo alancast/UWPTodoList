@@ -39,7 +39,7 @@ namespace UWPTodoList.ViewModels
             TodoItem item = new TodoItem();
             item.Title = ItemTitle;
             item.Description = ItemDescription;
-            item.Visibile = true;
+            item.Visible = true;
 
             // Add item to the todo list
             _list.Add(item);

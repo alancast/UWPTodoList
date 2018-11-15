@@ -13,7 +13,7 @@
         <ResourceDictionary>
             <converters:NullVisibilityConverter x:Key="nullVisibilityConverter" />
             <DataTemplate x:Key="TodoItemDetailedView" x:DataType="models:TodoItem">
-                <Grid>
+                <StackPanel>
                     <TextBlock 
                         x:Name="itemTitleHeaderTextBlock" 
                         HorizontalAlignment="Left"
@@ -27,7 +27,7 @@
                         x:Name="itemTitleTextBlock" 
                         HorizontalAlignment="Left"
                         Height="30" 
-                        Margin="30,30,0,0" 
+                        Margin="30,0,0,0" 
                         Text="{x:Bind Path=Title, Mode=OneWay}" 
                         TextWrapping="Wrap"
                         VerticalAlignment="Stretch" 
@@ -36,7 +36,7 @@
                         x:Name="itemDescriptionHeaderTextBlock" 
                         HorizontalAlignment="Left"
                         Height="30" 
-                        Margin="30,60,0,0" 
+                        Margin="30,30,0,0" 
                         Text="Description" 
                         TextWrapping="Wrap"
                         VerticalAlignment="Stretch" 
@@ -44,13 +44,13 @@
                     <TextBlock 
                         x:Name="itemDescriptionTextBlock" 
                         HorizontalAlignment="Left"
-                        Height="30" 
-                        Margin="30,90,0,0"
+                        Height="150" 
+                        Margin="30,0,0,0"
                         Text="{x:Bind Path=Description, Mode=OneWay}" 
                         TextWrapping="Wrap"
                         VerticalAlignment="Stretch" 
                         Width="156"/>
-                </Grid>
+                </StackPanel>
             </DataTemplate>
         </ResourceDictionary>
     </Page.Resources>

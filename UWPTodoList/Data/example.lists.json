@@ -1,0 +1,34 @@
+[
+  {
+    "ListName": "List 1",
+    "Icon": "People",
+    "Items": [
+      {
+        "Title": "Item 1",
+        "Description": "Description 1",
+        "Visible": true
+      },
+      {
+        "Title": "Item 2",
+        "Description": "Description 2",
+        "Visible": false
+      }
+    ]
+  },
+  {
+    "ListName": "Christmas List",
+    "Icon": "Emoji",
+    "Items": [
+      {
+        "Title": "Something thoughtful",
+        "Description": "Something that really says you care",
+        "Visible": true
+      },
+      {
+        "Title": "Cash",
+        "Description": "An easy gift but always a favorite",
+        "Visible": false
+      }
+    ]
+  }
+]

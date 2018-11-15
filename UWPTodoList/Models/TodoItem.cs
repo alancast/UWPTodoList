@@ -6,6 +6,6 @@
 
         public string Description { get; set; }
 
-        public bool Visibile { get; set; }
+        public bool Visible { get; set; }
     }
 }
