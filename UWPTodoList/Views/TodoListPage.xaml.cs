@@ -1,4 +1,5 @@
-﻿using UWPTodoList.Models;
+﻿using System;
+using UWPTodoList.Models;
 using UWPTodoList.ViewModels;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -22,9 +23,10 @@ namespace UWPTodoList.Views
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (e.Parameter is TodoList && e.Parameter != null)
+            dynamic args = e.Parameter;
+            if (args != null && args.list is TodoList && args.onItemUpdate is Action)
             {
-                ViewModel = new TodoListViewModel((TodoList)e.Parameter);
+                ViewModel = new TodoListViewModel((TodoList)args.list, (Action)args.onItemUpdate);
             }
             base.OnNavigatedTo(e);
         }

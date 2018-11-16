@@ -16,8 +16,14 @@ namespace UWPTodoList
         public MainPage()
         {
             ViewModel = new MainPageViewModel();
-            this.InitializeComponent();
-            this.DataContext = ViewModel;
+            InitializeComponent();
+            Loading += initializeViewModel;
+        }
+
+        private async void initializeViewModel(Windows.UI.Xaml.FrameworkElement sender, object args)
+        {
+            await ViewModel.Initialize();
+            Bindings.Update();
         }
 
         public MainPageViewModel ViewModel { get; set; }
@@ -45,7 +51,7 @@ namespace UWPTodoList
                             break;
                         }
                     }
-                    contentFrame.Navigate(typeof(TodoListPage), ViewModel.lists[index]);
+                    contentFrame.Navigate(typeof(TodoListPage), new { list = ViewModel.lists[index], onItemUpdate = new Action(() => { ViewModel.OnItemUpdate(); } )});
                 }
             }
         }

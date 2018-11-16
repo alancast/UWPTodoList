@@ -1,7 +1,10 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Threading.Tasks;
 using UWPTodoList.Models;
+using Windows.Storage;
 
 namespace UWPTodoList.ViewModels
 {
@@ -9,24 +12,62 @@ namespace UWPTodoList.ViewModels
     {
         public MainPageViewModel()
         {
-            populateTodoListsCollection();
+        }
+
+        public async Task Initialize()
+        {
+            await populateTodoListsCollection();
+        }
+
+        private string dbFileName = "lists.json";
+
+        public async void OnItemUpdate()
+        {
+            await SaveJson();
+        }
+
+        private async Task SaveJson()
+        {
+            var Folder = ApplicationData.Current.LocalFolder;
+            var file = await Folder.CreateFileAsync(dbFileName, CreationCollisionOption.ReplaceExisting);
+            var data = await file.OpenStreamForWriteAsync();
+
+            using (StreamWriter r = new StreamWriter(data))
+            {
+                var json = JsonConvert.SerializeObject(lists);
+                r.Write(json);
+            }
         }
 
         public ObservableCollection<TodoList> lists { get; set; }
 
-        private void populateTodoListsCollection()
+        private async Task populateTodoListsCollection()
         {
-            LoadJson("Data/lists.json");
+            await LoadJson(dbFileName);
         }
 
-        private void LoadJson(string filename)
+        private async Task LoadJson(string filename)
         {
-            using (StreamReader r = new StreamReader(filename))
+            // See if there is already data in local state
+            // If there isn't, copy over the data we packaged
+            // If there is just read that data
+            var localStateFolder = ApplicationData.Current.LocalFolder;
+            var localStateFile = await localStateFolder.TryGetItemAsync(dbFileName);
+
+            if (localStateFile == null) // No local state data
             {
-                string json = r.ReadToEnd();
-                var testing = JsonConvert.DeserializeObject<ObservableCollection<TodoList>>(json);
-                lists = JsonConvert.DeserializeObject<ObservableCollection<TodoList>>(json);
+                // Copy the file from the install folder to the local folder
+                var folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync("Data");
+                var file = await folder.GetFileAsync(dbFileName);
+                if (file != null)
+                {
+                    await file.CopyAsync(localStateFolder, dbFileName, NameCollisionOption.FailIfExists);
+                }
             }
+
+            StorageFile listsFile = await localStateFolder.GetFileAsync(filename);
+            string json = await FileIO.ReadTextAsync(listsFile);
+            lists = JsonConvert.DeserializeObject<ObservableCollection<TodoList>>(json);
         }
     }
 }

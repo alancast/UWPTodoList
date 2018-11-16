@@ -1,12 +1,18 @@
-﻿using UWPTodoList.Models;
+﻿using System;
+using UWPTodoList.Models;
 
 namespace UWPTodoList.ViewModels
 {
     public class TodoListViewModel : BindableBase
     {
-        public TodoListViewModel(TodoList list) => List = list;
+        public TodoListViewModel(TodoList list, Action onItemUpdate)
+        {
+            List = list;
+            OnItemUpdate = onItemUpdate;
+        }
 
         private TodoList _list;
+        private Action OnItemUpdate;
 
         public TodoList List
         {
@@ -48,6 +54,7 @@ namespace UWPTodoList.ViewModels
             ItemTitle = "";
             ItemDescription = "";
             OnPropertyChanged(string.Empty);
+            OnItemUpdate();
         }
     }
 }
