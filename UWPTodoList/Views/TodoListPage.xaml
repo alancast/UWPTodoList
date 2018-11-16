@@ -135,5 +135,15 @@
             Margin="780,264,0,0"
             VerticalAlignment="Top"
             Width="231" />
+        <Button 
+            x:Name="RemoveItemButton"
+            Content="Remove Item"
+            Click="{x:Bind ViewModel.RemoveItem}"
+            Visibility="{x:Bind Path=ViewModel.SelectedItem, Mode=OneWay, Converter={StaticResource nullVisibilityConverter}}"
+            HorizontalAlignment="Left" 
+            Height="44" 
+            Margin="780,554,0,0" 
+            VerticalAlignment="Top"
+            Width="231"/>
     </Grid>
 </Page>

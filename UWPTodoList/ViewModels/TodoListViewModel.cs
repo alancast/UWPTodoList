@@ -56,5 +56,12 @@ namespace UWPTodoList.ViewModels
             OnPropertyChanged(string.Empty);
             OnItemUpdate();
         }
+
+        public void RemoveItem()
+        {
+            _list.Remove(_selectedItem);
+            OnPropertyChanged(string.Empty);
+            OnItemUpdate();
+        }
     }
 }

@@ -16,5 +16,10 @@ namespace UWPTodoList.Models
                 Items.Add(item);
             }
         }
+
+        public void Remove(TodoItem item)
+        {
+            Items.Remove(item);
+        }
     }
 }
