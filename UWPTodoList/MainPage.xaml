@@ -11,7 +11,7 @@
     <Grid>
         <NavigationView 
             x:Name="nvTopLevelNav"
-            MenuItemsSource="{x:Bind Path=ViewModel.lists, Mode=OneWay}"
+            MenuItemsSource="{x:Bind Path=ViewModel.Lists, Mode=OneWay}"
             Margin="0,12,0,0"
             SelectionChanged="nvTopLevelNav_SelectionChanged"
             IsTabStop="False"

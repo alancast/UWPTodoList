@@ -16,14 +16,13 @@ namespace UWPTodoList
         public MainPage()
         {
             InitializeComponent();
+            ViewModel = new MainPageViewModel();
             Loading += initializeViewModel;
         }
 
         private async void initializeViewModel(Windows.UI.Xaml.FrameworkElement sender, object args)
         {
-            ViewModel = new MainPageViewModel();
             await ViewModel.Initialize();
-            Bindings.Update();
         }
 
         public MainPageViewModel ViewModel { get; set; }
@@ -42,16 +41,16 @@ namespace UWPTodoList
                 {
                     int index = -1;
                     string selectedListName = ItemContent.ListName;
-                    for (int i = 0; i < ViewModel.lists.Count; i++)
+                    for (int i = 0; i < ViewModel.Lists.Count; i++)
                     {
                         //case insensitive search
-                        if (String.Equals(ViewModel.lists[i].ListName, selectedListName, StringComparison.OrdinalIgnoreCase))
+                        if (String.Equals(ViewModel.Lists[i].ListName, selectedListName, StringComparison.OrdinalIgnoreCase))
                         {
                             index = i;
                             break;
                         }
                     }
-                    contentFrame.Navigate(typeof(TodoListPage), new { list = ViewModel.lists[index], onItemUpdate = new Action(() => { ViewModel.OnItemUpdate(); } )});
+                    contentFrame.Navigate(typeof(TodoListPage), new { list = ViewModel.Lists[index], onItemUpdate = new Action(() => { ViewModel.OnItemUpdate(); } )});
                 }
             }
         }

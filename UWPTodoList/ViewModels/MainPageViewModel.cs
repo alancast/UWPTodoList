@@ -34,12 +34,21 @@ namespace UWPTodoList.ViewModels
 
             using (StreamWriter r = new StreamWriter(data))
             {
-                var json = JsonConvert.SerializeObject(lists);
+                var json = JsonConvert.SerializeObject(Lists);
                 r.Write(json);
             }
         }
 
-        public ObservableCollection<TodoList> lists { get; set; }
+        private ObservableCollection<TodoList> _lists;
+        public ObservableCollection<TodoList> Lists
+        {
+            get { return _lists; }
+            set
+            {
+                _lists = value;
+                OnPropertyChanged("Lists");
+            }
+        }
 
         private async Task populateTodoListsCollection()
         {
@@ -67,7 +76,7 @@ namespace UWPTodoList.ViewModels
 
             StorageFile listsFile = await localStateFolder.GetFileAsync(filename);
             string json = await FileIO.ReadTextAsync(listsFile);
-            lists = JsonConvert.DeserializeObject<ObservableCollection<TodoList>>(json);
+            Lists = JsonConvert.DeserializeObject<ObservableCollection<TodoList>>(json);
         }
     }
 }
