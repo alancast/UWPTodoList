@@ -142,10 +142,10 @@
                 ContentTemplate="{StaticResource TodoItemDetailedView}"
                 Content="{x:Bind Path=ViewModel.SelectedItem, Mode=OneWay}" 
                 HorizontalAlignment="Left" 
-                Height="285"
+                Height="250"
                 Margin="0,30,0,0"
                 VerticalAlignment="Top"
-                Width="231" />
+                Width="200" />
             <Button 
                 x:Name="removeItemButton"
                 Content="Remove Item"
