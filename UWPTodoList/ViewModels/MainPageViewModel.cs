@@ -45,8 +45,11 @@ namespace UWPTodoList.ViewModels
             get { return _lists; }
             set
             {
-                _lists = value;
-                OnPropertyChanged("Lists");
+                if (_lists != value)
+                {
+                    _lists = value;
+                    OnPropertyChanged(nameof(Lists));
+                }
             }
         }
 

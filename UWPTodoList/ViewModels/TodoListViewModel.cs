@@ -22,7 +22,7 @@ namespace UWPTodoList.ViewModels
                 if (_list != value)
                 {
                     _list = value;
-                    OnPropertyChanged("List");
+                    OnPropertyChanged(nameof(List));
                 }
             }
         }
@@ -31,8 +31,21 @@ namespace UWPTodoList.ViewModels
         private TodoItem _selectedItem;
         public TodoItem SelectedItem
         {
-            get => _selectedItem;
-            set => Set(ref _selectedItem, value);
+            get { return _selectedItem; }
+            set
+            {
+                if (_selectedItem != value)
+                {
+                    _selectedItem = value;
+                    OnPropertyChanged(nameof(SelectedItem));
+                    OnPropertyChanged(nameof(IsItemSelected));
+                }
+            }
+        }
+
+        public bool IsItemSelected
+        {
+            get { return _selectedItem != null; }
         }
 
         public string ItemTitle { get; set; }
@@ -51,9 +64,9 @@ namespace UWPTodoList.ViewModels
 
             // Reset title and description and notify view of change
             ItemTitle = "";
-            OnPropertyChanged("ItemTitle");
+            OnPropertyChanged(nameof(ItemTitle));
             ItemDescription = "";
-            OnPropertyChanged("ItemDescription");
+            OnPropertyChanged(nameof(ItemDescription));
 
             // Notify parent of item update (so they can update db)
             _onItemUpdate();

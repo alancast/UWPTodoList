@@ -11,139 +11,150 @@
 
     <Page.Resources>
         <ResourceDictionary>
-            <converters:NullVisibilityConverter x:Key="nullVisibilityConverter" />
             <DataTemplate x:Key="TodoItemDetailedView" x:DataType="models:TodoItem">
                 <StackPanel>
                     <TextBlock 
                         x:Name="itemTitleHeaderTextBlock" 
-                        HorizontalAlignment="Left"
-                        Height="30" 
-                        Margin="30,0,0,0" 
+                        HorizontalAlignment="Stretch"
                         Text="Title" 
                         TextWrapping="Wrap"
-                        VerticalAlignment="Stretch" 
-                        Width="134"/>
+                        TextAlignment="Center"/>
                     <TextBlock 
                         x:Name="itemTitleTextBlock" 
-                        HorizontalAlignment="Left"
+                        HorizontalAlignment="Stretch"
                         Height="30" 
-                        Margin="30,0,0,0" 
+                        Margin="0,10,0,0" 
                         Text="{x:Bind Path=Title, Mode=OneWay}" 
-                        TextWrapping="Wrap"
-                        VerticalAlignment="Stretch" 
-                        Width="134"/>
+                        TextWrapping="Wrap"/>
                     <TextBlock 
                         x:Name="itemDescriptionHeaderTextBlock" 
-                        HorizontalAlignment="Left"
-                        Height="30" 
-                        Margin="30,30,0,0" 
+                        HorizontalAlignment="Stretch"
+                        Margin="0,30,0,0" 
                         Text="Description" 
                         TextWrapping="Wrap"
-                        VerticalAlignment="Stretch" 
-                        Width="134"/>
+                        TextAlignment="Center"/>
                     <TextBlock 
                         x:Name="itemDescriptionTextBlock" 
-                        HorizontalAlignment="Left"
+                        HorizontalAlignment="Stretch"
                         Height="150" 
-                        Margin="30,0,0,0"
+                        Margin="0,10,0,0"
                         Text="{x:Bind Path=Description, Mode=OneWay}" 
-                        TextWrapping="Wrap"
-                        VerticalAlignment="Stretch" 
-                        Width="156"/>
+                        TextWrapping="Wrap"/>
                 </StackPanel>
             </DataTemplate>
         </ResourceDictionary>
     </Page.Resources>
     <Grid>
-        <TextBlock 
-            x:Name="titleTextBlock" 
-            HorizontalAlignment="Left" 
-            Height="22" 
-            Margin="169,244,0,0" 
-            Text="Title" 
-            TextWrapping="Wrap" 
-            VerticalAlignment="Top"
-            Width="186"        
-            TextAlignment="Center" />
-        <TextBox 
-            x:Name="titleTextBox" 
-            HorizontalAlignment="Left" 
-            Height="31" 
-            Margin="169,269,0,0" 
-            Text="{x:Bind Path=ViewModel.ItemTitle, Mode=TwoWay}"
-            VerticalAlignment="Top" 
-            Width="187" />
-        <TextBlock x:Name="descriptionTextBlock" 
-            HorizontalAlignment="Left" 
-            Height="22" 
-            Margin="169,320,0,0" 
-            Text="Description" 
-            TextWrapping="Wrap" 
-            VerticalAlignment="Top"
-            Width="186" 
-            TextAlignment="Center" />
-        <TextBox 
-            x:Name="descriptionTextBox" 
-            HorizontalAlignment="Left" 
-            Height="91" 
-            Margin="169,345,0,0" 
-            Text="{x:Bind Mode=TwoWay, Path=ViewModel.ItemDescription}"
-            VerticalAlignment="Top" 
-            Width="187" />
-        <Button 
-            x:Name="AddItemButton" 
-            Click="{x:Bind ViewModel.AddItem}"
-            Content="Add Item" 
-            HorizontalAlignment="Left" 
-            VerticalAlignment="Top" 
-            Margin="169,500,0,0" 
-            Height="98" 
-            Width="190" />
-        <TextBlock 
-            x:Name="listNameTextBlock" 
-            HorizontalAlignment="Left" 
-            Height="23" 
-            Margin="437,206,0,0" 
-            Text="{x:Bind Path=ViewModel.List.ListName, Mode=OneWay}" 
-            TextWrapping="Wrap" 
-            VerticalAlignment="Top" 
-            Width="283" 
-            TextAlignment="Center" />
-        <ListView 
-            x:Name="itemsListView" 
-            ItemsSource="{x:Bind ViewModel.List.Items}"
-            SelectedItem="{x:Bind Path=ViewModel.SelectedItem, Mode=TwoWay}"
-            HorizontalAlignment="Left" 
-            Height="344" 
-            Margin="437,254,0,0" 
-            VerticalAlignment="Top" 
-            Width="283" 
-            Background="#FFE2E2E2">
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="models:TodoItem">
-                    <TextBlock Text="{x:Bind Title}" />
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        <ContentControl 
-            x:Name="TodoItemDetailedViewContentControl"
-            ContentTemplate="{StaticResource TodoItemDetailedView}"
-            Content="{x:Bind Path=ViewModel.SelectedItem, Mode=OneWay}" 
-            Visibility="{x:Bind Path=ViewModel.SelectedItem, Mode=OneWay, Converter={StaticResource nullVisibilityConverter}}"
-            HorizontalAlignment="Left" 
-            Height="285"
-            Margin="780,264,0,0"
-            VerticalAlignment="Top"
-            Width="231" />
-        <Button 
-            x:Name="RemoveItemButton"
-            Content="Remove Item"
-            Click="{x:Bind ViewModel.RemoveItem}"
-            Visibility="{x:Bind Path=ViewModel.SelectedItem, Mode=OneWay, Converter={StaticResource nullVisibilityConverter}}"
-            HorizontalAlignment="Left" 
-            Height="44" 
-            Margin="780,554,0,0" 
-            VerticalAlignment="Top"
-            Width="231"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel 
+            x:Name="addItemPanel" 
+            Grid.Column="0" 
+            Margin="30,0,0,0">
+            <TextBlock 
+                Text="Add Item"
+                TextAlignment="Center"/>
+            <TextBlock 
+                x:Name="titleTextBlock" 
+                HorizontalAlignment="Stretch" 
+                Margin="0,30,0,0" 
+                Text="Title" 
+                TextWrapping="Wrap" 
+                VerticalAlignment="Top"
+                TextAlignment="Center" />
+            <TextBox 
+                x:Name="titleTextBox" 
+                HorizontalAlignment="Left" 
+                Height="30" 
+                Margin="0,10,0,0" 
+                Text="{x:Bind Path=ViewModel.ItemTitle, Mode=TwoWay}"
+                VerticalAlignment="Top" 
+                Width="200" />
+            <TextBlock 
+                x:Name="descriptionTextBlock" 
+                HorizontalAlignment="Stretch" 
+                Margin="0,30,0,0" 
+                Text="Description" 
+                TextWrapping="Wrap" 
+                VerticalAlignment="Top"
+                TextAlignment="Center" />
+            <TextBox 
+                x:Name="descriptionTextBox" 
+                HorizontalAlignment="Stretch" 
+                Height="100" 
+                Margin="0,10,0,0" 
+                Text="{x:Bind Mode=TwoWay, Path=ViewModel.ItemDescription}"
+                VerticalAlignment="Top" />
+            <Button 
+                x:Name="addItemButton" 
+                Click="{x:Bind ViewModel.AddItem}"
+                Content="Add Item" 
+                HorizontalAlignment="Stretch" 
+                VerticalAlignment="Top" 
+                Margin="0,30,0,0" 
+                Height="50" />
+        </StackPanel>
+        <StackPanel 
+            x:Name="listItemsPanel" 
+            Grid.Column="1" 
+            Margin="30,0,0,0">
+            <TextBlock 
+                Text="List items"
+                TextAlignment="Center"/>
+            <TextBlock 
+                x:Name="listNameTextBlock" 
+                HorizontalAlignment="Stretch" 
+                Margin="0,30,0,0" 
+                Text="{x:Bind Path=ViewModel.List.ListName, Mode=OneWay}" 
+                TextWrapping="Wrap" 
+                VerticalAlignment="Top" 
+                TextAlignment="Center" />
+            <ListView 
+                x:Name="itemsListView" 
+                ItemsSource="{x:Bind ViewModel.List.Items}"
+                SelectedItem="{x:Bind Path=ViewModel.SelectedItem, Mode=TwoWay}"
+                HorizontalAlignment="Left" 
+                Height="344" 
+                Margin="20,10,0,0" 
+                VerticalAlignment="Top" 
+                Width="200" 
+                Background="#FFE2E2E2">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="models:TodoItem">
+                        <TextBlock Text="{x:Bind Title}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
+        <StackPanel
+            x:Name="itemDetailsPanel" 
+            Grid.Column="2" 
+            Margin="30,0,0,0"
+            Visibility="{x:Bind Path=ViewModel.IsItemSelected, Mode=OneWay}">
+            <TextBlock 
+                Text="Item Details"
+                TextAlignment="Center"/>
+            <ContentControl 
+                x:Name="todoItemDetailedViewContentControl"
+                ContentTemplate="{StaticResource TodoItemDetailedView}"
+                Content="{x:Bind Path=ViewModel.SelectedItem, Mode=OneWay}" 
+                HorizontalAlignment="Left" 
+                Height="285"
+                Margin="0,30,0,0"
+                VerticalAlignment="Top"
+                Width="231" />
+            <Button 
+                x:Name="removeItemButton"
+                Content="Remove Item"
+                Click="{x:Bind ViewModel.RemoveItem}"
+                HorizontalAlignment="Stretch" 
+                Height="50" 
+                Margin="0,30,0,0" 
+                VerticalAlignment="Top"/>
+        </StackPanel>
+        
     </Grid>
 </Page>
