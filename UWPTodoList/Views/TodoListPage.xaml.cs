@@ -15,8 +15,8 @@ namespace UWPTodoList.Views
     {
         public TodoListPage()
         {
-            this.InitializeComponent();
-            this.DataContext = ViewModel;
+            InitializeComponent();
+            DataContext = ViewModel;
         }
 
         public TodoListViewModel ViewModel { get; set; }

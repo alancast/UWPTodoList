@@ -5,15 +5,15 @@ namespace UWPTodoList.ViewModels
 {
     public class TodoListViewModel : BindableBase
     {
+        private Action _onItemUpdate;
+
         public TodoListViewModel(TodoList list, Action onItemUpdate)
         {
             List = list;
-            OnItemUpdate = onItemUpdate;
+            _onItemUpdate = onItemUpdate;
         }
 
         private TodoList _list;
-        private Action OnItemUpdate;
-
         public TodoList List
         {
             get => _list;
@@ -22,8 +22,7 @@ namespace UWPTodoList.ViewModels
                 if (_list != value)
                 {
                     _list = value;
-
-                    OnPropertyChanged(string.Empty);
+                    OnPropertyChanged("List");
                 }
             }
         }
@@ -52,16 +51,20 @@ namespace UWPTodoList.ViewModels
 
             // Reset title and description and notify view of change
             ItemTitle = "";
+            OnPropertyChanged("ItemTitle");
             ItemDescription = "";
-            OnPropertyChanged(string.Empty);
-            OnItemUpdate();
+            OnPropertyChanged("ItemDescription");
+
+            // Notify parent of item update (so they can update db)
+            _onItemUpdate();
         }
 
         public void RemoveItem()
         {
             _list.Remove(_selectedItem);
-            OnPropertyChanged(string.Empty);
-            OnItemUpdate();
+
+            // Notify parent of item update (so they can update db)
+            _onItemUpdate();
         }
     }
 }

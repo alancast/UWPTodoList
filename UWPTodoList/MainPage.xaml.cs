@@ -15,13 +15,13 @@ namespace UWPTodoList
     {
         public MainPage()
         {
-            ViewModel = new MainPageViewModel();
             InitializeComponent();
             Loading += initializeViewModel;
         }
 
         private async void initializeViewModel(Windows.UI.Xaml.FrameworkElement sender, object args)
         {
+            ViewModel = new MainPageViewModel();
             await ViewModel.Initialize();
             Bindings.Update();
         }
