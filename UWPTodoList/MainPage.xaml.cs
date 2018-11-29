@@ -16,7 +16,7 @@ namespace UWPTodoList
         public MainPage()
         {
             InitializeComponent();
-            ViewModel = new MainPageViewModel();
+            ViewModel = new MainPageViewModel(new JsonDataStorage<TodoList>());
             Loading += initializeViewModel;
         }
 

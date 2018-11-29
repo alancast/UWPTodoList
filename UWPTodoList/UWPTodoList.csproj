@@ -98,6 +98,8 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\IDataStorage.cs" />
+    <Compile Include="Models\JsonDataStorage.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\TodoListViewModel.cs" />
     <Compile Include="Views\TodoListPage.xaml.cs">
