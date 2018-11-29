@@ -7,7 +7,7 @@ namespace UWPTodoList.Models
         public string ListName { get; set; } = "My Todo List";
         public string Icon { get; set; } = "Home";
 
-        public ObservableCollection<TodoItem> Items { get; set; } = new ObservableCollection<TodoItem>();
+        public ObservableCollection<TodoItem> Items { get; } = new ObservableCollection<TodoItem>();
 
         public void Add(TodoItem item)
         {

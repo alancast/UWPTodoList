@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
 using UWPTodoList.Models;
 using UWPTodoList.ViewModels;
 using UWPTodoList.Views;
@@ -16,7 +17,12 @@ namespace UWPTodoList
         public MainPage()
         {
             InitializeComponent();
-            ViewModel = new MainPageViewModel(new JsonDataStorage<TodoList>());
+
+            var serviceCollection = new ServiceCollection()
+                .AddSingleton<IDataStorage<TodoList>, JsonDataStorage<TodoList>>()
+                .BuildServiceProvider();
+
+            ViewModel = new MainPageViewModel(serviceCollection.GetService<IDataStorage<TodoList>>());
             Loading += initializeViewModel;
         }
 

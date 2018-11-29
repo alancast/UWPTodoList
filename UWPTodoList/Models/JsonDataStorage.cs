@@ -26,13 +26,21 @@ namespace UWPTodoList.Models
 
             if (localStateFile == null) // No local state data
             {
-                // Copy the file from the install folder to the local folder
-                var folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync("Data");
-                var file = await folder.GetFileAsync(_filename);
-                if (file != null)
+                try
                 {
-                    await file.CopyAsync(localStateFolder, _filename, NameCollisionOption.FailIfExists);
+                    // Copy the file from the install folder to the local folder
+                    var folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync("Data");
+                    var file = await folder.GetFileAsync(_filename);
+                    if (file != null)
+                    {
+                        await file.CopyAsync(localStateFolder, _filename, NameCollisionOption.FailIfExists);
+                    }
                 }
+                catch (Exception)
+                {
+                    return new List<T>();
+                }
+                
             }
 
             StorageFile listsFile = await localStateFolder.GetFileAsync(_filename);
