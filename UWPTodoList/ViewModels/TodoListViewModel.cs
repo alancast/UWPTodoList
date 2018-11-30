@@ -55,8 +55,11 @@ namespace UWPTodoList.ViewModels
         {
             // Create the new Todo Item
             TodoItem item = new TodoItem();
-            item.Title = ItemTitle;
-            item.Description = ItemDescription;
+            if (ItemTitle != null)
+            {
+                item.Title = ItemTitle;
+                item.Description = (ItemDescription == null) ? "" : ItemDescription;
+            }
             item.Visible = true;
 
             // Add item to the todo list
@@ -75,6 +78,7 @@ namespace UWPTodoList.ViewModels
         public void RemoveItem()
         {
             _list.Remove(_selectedItem);
+            SelectedItem = null;
 
             // Notify parent of item update (so they can update db)
             _onItemUpdate();
