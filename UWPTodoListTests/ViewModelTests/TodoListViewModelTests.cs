@@ -12,6 +12,33 @@ namespace ViewModelTests
         private int itemUpdatedCount = 0;
         private List<string> propertiesChanged = new List<string>();
 
+        TodoListViewModel Setup(TodoList list = null, Action itemUpdateAction = null)
+        {
+            if (list == null)
+            {
+                list = new TodoList();
+            }
+
+            if (itemUpdateAction == null)
+            {
+                itemUpdateAction = fakeOnItemUpdate;
+            }
+
+            TodoListViewModel tlvm = new TodoListViewModel(list, itemUpdateAction);
+            tlvm.PropertyChanged += (sender, e) =>
+            {
+                propertiesChanged.Add(e.PropertyName);
+            };
+
+            return tlvm;
+        }
+
+        void TearDown()
+        {
+            propertiesChanged.Clear();
+            itemUpdatedCount = 0;
+        }
+
         [TestMethod]
         public void AddEmptyItem()
         {
@@ -134,33 +161,6 @@ namespace ViewModelTests
         void fakeOnItemUpdate()
         {
             itemUpdatedCount++;
-        }
-
-        TodoListViewModel Setup(TodoList list = null, Action itemUpdateAction = null)
-        {
-            if (list == null)
-            {
-                list = new TodoList();
-            }
-            
-            if (itemUpdateAction == null)
-            {
-                itemUpdateAction = fakeOnItemUpdate;
-            }
-
-            TodoListViewModel tlvm = new TodoListViewModel(list, itemUpdateAction);
-            tlvm.PropertyChanged += (sender, e) =>
-            {
-                propertiesChanged.Add(e.PropertyName);
-            };
-
-            return tlvm;
-        }
-
-        void TearDown()
-        {
-            propertiesChanged.Clear();
-            itemUpdatedCount = 0;
         }
     }
 }

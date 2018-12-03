@@ -119,6 +119,7 @@
     <SDKReference Include="TestPlatform.Universal, Version=$(UnitTestPlatformVersion)" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Fakes\FakeIDataStorage.cs" />
     <Compile Include="ModelTests\JsonDataStorageTests.cs" />
     <Compile Include="ModelTests\TodoListTests.cs" />
     <Compile Include="ViewModelTests\MainPageViewModelTests.cs" />

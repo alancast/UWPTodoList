@@ -19,9 +19,12 @@ namespace UWPTodoList.ViewModels
             Lists = new ObservableCollection<TodoList>(await _datastore.ReadData());
         }
 
-        public async void OnItemUpdate()
+        public async Task OnItemUpdate()
         {
-            await _datastore.SaveData(Lists.ToList());
+            if (Lists != null)
+            {
+                await _datastore.SaveData(Lists.ToList());
+            }
         }
 
         private ObservableCollection<TodoList> _lists;
